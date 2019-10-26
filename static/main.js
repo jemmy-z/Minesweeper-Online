@@ -64,6 +64,27 @@ function updateGrid(){
     });
 }
 
+function on() {
+    document.getElementById("overlay").style.display = "block";
+    var count = 3;
+    document.getElementById("text").innerHTML = count.toString();
+    var x = setInterval(counter, 1000);
+    function counter() {
+        if (count == 0) {
+            clearInterval(x);
+            off();
+        } else {
+            count--;
+            document.getElementById("text").innerHTML = count.toString();  
+        }
+    }
+}
+
+function off() {
+  document.getElementById("text").innerHTML = "";
+  document.getElementById("overlay").style.display = "none";
+}
+
 $(document).ready(function(){
 
     createGrid();    
@@ -75,4 +96,11 @@ $(document).ready(function(){
         });
         
 	});
+
+    $("#StartGameBtn").click(function() {
+        $.get("/StartGame", {}, function(response){
+            //countdown
+            on();
+        });
+    });
 });

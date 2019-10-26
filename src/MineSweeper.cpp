@@ -6,11 +6,22 @@
     10 = bomb
     -1 = hidden
 */
-MineSweeper::MineSweeper(tuple<int, int>[] mineLoc){
+MineSweeper::MineSweeper(int n, int m, int numMines){
+    this.n = n;
+    this.m = m;
+    this.numMines = numMines
+}
+
+
+MineSweeper::MineSweeper(tuple<int, int>[] mineLoc, int n, int m){
+    MineSweeper(n, m. mineLoc.length());
+
     //Init board to be hidden
     board = new int*[n];
+    solutionBoard = new int*[n]
     for (int i = 0 ; i < n ; i++){
         board[i] = new int[m];
+        solutionBoard[i] = new int[m];
         for(int j = 0 ; j < m ; j++){
             board[i][j] = -1;               //Init board to all -1
             solutionBoard[i][j] = 0;        //Init solu board to all 0
@@ -29,13 +40,17 @@ MineSweeper::MineSweeper(tuple<int, int>[] mineLoc){
 			    if(i == 0 && j == 0) continue;
 			        int nx = c + j;
 			        int ny = r + i;
-			    if (nx < 0 || nx == boardSize || ny < 0 || ny == boardSize) continue;
+			    if (nx < 0 || nx == m || ny < 0 || ny == n) continue;
                 if(solutionBoard[ny][nx] != 10){        //Dont increment bomb cells
                     solutionBoard[ny][nx] += 1;
                 }
 		    }
 	    }
     }
+}
+
+void MineSweeper::setMines(tuple<int, int>[] mineLoc){
+    MinSweeper(mineLoc);
 }
 
 //Depreceated

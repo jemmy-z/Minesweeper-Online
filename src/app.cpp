@@ -1,24 +1,44 @@
 #include <server.h>
-#include <TicTacToe.hpp>
+#include <Player.h>
+#include <MineSweeper.hpp>
 
-using namespace ucm;
+using namespace minesweeper;
+
+int MAX_PLAYERS = 1;
+
 
 int main(int argc, char** argv){
 
     CrowServer server(argc, argv);
 
-    TicTacToe game;
+    MineSweeper gameboards[MAX_PLAYERS];
+    Player players[MAX_PLAYERS];
+    int next_index = 0;
+
 
     server.renderHTML("/", "index.html");
 
-    server.route("/NewGame", [&](const request& req, response& res){
+    server.route("/NewGame", [&](const request& req, response& res) {
+        assert (next_index < MAX_PLAYERS);
+        players[next_index] = Player(next_index, next_index);
+        next_index++;
 
-        game.reset();
-    
         res.sendHTML("");
     });
 
-    server.route("/cellClicked", [&](const request& req, response& res){
+    server.route("/StartGame", [&](const request& req, response& res) {
+        assert (sizeof(players) > 1);
+        // disable NewGame
+
+        // initialize gameboard
+
+        // copy gameboard to list of gameboards
+
+        // countdown from 3
+        res.sendHTML("");
+    });
+
+    server.route("/cellClicked", [&](const request& req, response& res) {
         if (req.has_params({"row", "col"})){
 
             int row = std::stoi(req.url_params.get("row"));
@@ -32,7 +52,7 @@ int main(int argc, char** argv){
         } 
     });
 
-    server.route("/updateGrid", [&](const request& req, response& res){
+    server.route("/updateGrid", [&](const request& req, response& res) {
 
         json response = game.pushGrid();
     

@@ -1,5 +1,5 @@
-#ifndef UCMSERVER
-#define UCMSERVER
+#ifndef MINESWEEPERSERVER
+#define MINESWEEPERSERVER
 
 #include <string>
 #include <crow/crow_all.h>
@@ -13,7 +13,7 @@
 #include <algorithm>
 #include <boost/filesystem.hpp>
 
-namespace ucm {
+namespace minesweeper {
     
 struct StaticAsset{
     std::string filename;

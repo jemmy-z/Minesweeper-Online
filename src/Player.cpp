@@ -2,15 +2,14 @@
 
 Player::Player () {
     playerId = -1;
-    boardId = "";
+    game = MineSweeper();
 }
 
-Player::Player (int pid, int bid) {
+Player::Player (int pid) {
     playerId = pid;
-    boardId = bid;
 }
 
-std::string Player::getPlayerId () {
+int Player::getPlayerId () {
     return playerId;
 }
 
@@ -18,10 +17,10 @@ void Player::setPlayerId (int pid) {
     playerId = pid;
 }
 
-int Player::getBoardId () {
-    return boardId;
+MineSweeper Player::getGame () {
+    return game;
 }
 
-void Player::setBoardId (int bid) {
-    boardId = bid;
+void Player::setGame (MineSweeper init) {
+    
 }

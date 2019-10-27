@@ -5,19 +5,17 @@
 
 using namespace minesweeper;
 
-int MAX_PLAYERS = 1;
-
 int main(int argc, char** argv){
 
     CrowServer server(argc, argv);
 
     lobby mainLobby = lobby();
-    //Player players[MAX_PLAYERS];
     int next_index = 0;
 
     std::tuple<std::string, int> leaderboard[10];
 
     server.renderHTML("/", "index.html");
+    //server.renderHTML("/game.html", "game.html");
 
     server.route("/JoinLobby", [&](const request& req, response& res) {
 
@@ -49,6 +47,13 @@ int main(int argc, char** argv){
         res.sendHTML("");
     });
 
+    //recursive end call
+    server.route("/StartDelay", [&](const request& req, response& res){     //0 = stop, 1 = play
+        minesweeper::json result;
+        result["start"] = mainLobby.startable();
+        res.sendJSON(result);
+    });
+  
     server.route("/cellClicked", [&](const request& req, response& res) {
         if (req.has_params({"pid", "row", "col", "clickType"})){
             minesweeper::json result;

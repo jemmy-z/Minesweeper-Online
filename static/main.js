@@ -15,10 +15,10 @@ function updateCell(r, c, state){
 function createGrid(data){
 	var result = "";
 
-	for (var i = 0 ; i < 3 ; i++){
+	for (var i = 0 ; i < data[0] ; i++){
 		var cr = "<tr>";
-		for (var j = 0 ; j < 3 ; j++){   
-			cr = cr + "<td id=\"" + i.toString() + "-" + j.toString() + "\"></td>"
+		for (var j = 0 ; j < data[1] ; j++){   
+			cr = cr + "<td class=\"content\" id=\"" + i.toString() + "-" + j.toString() + "\"></td>"
 		}
 		cr = cr + "</tr>\n";
 		result = result + cr;
@@ -26,8 +26,8 @@ function createGrid(data){
 
     $("#grid").html(result);
     
-    for(var i = 0 ; i < 3 ; i++){
-        for(var j = 0 ; j < 3 ;j++){
+    for(var i = 0 ; i < data[0] ; i++){
+        for(var j = 0 ; j < data[1] ;j++){
             var sel = "#" + i.toString()+ "-" + j.toString();
             $(sel).click(cellClicked);
             $(sel)[0].r = i;
@@ -64,6 +64,9 @@ function updateGrid(){
     });
 }
 
+function startGame() {
+    createGrid([20, 35]);
+}
 function on() {
     document.getElementById("overlay").style.display = "block";
     var count = 3;
@@ -72,7 +75,7 @@ function on() {
     function counter() {
         if (count == 0) {
             clearInterval(x);
-            off();
+            window.location.href="game.html";
         } else {
             count--;
             document.getElementById("text").innerHTML = count.toString();  

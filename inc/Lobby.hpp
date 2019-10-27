@@ -24,6 +24,7 @@ public:
     void startLobby();
     minesweeper::json joinLobby(Player p);
     Player getPlayerFromID(int PID);
+    int startable();
 };
 
 #endif

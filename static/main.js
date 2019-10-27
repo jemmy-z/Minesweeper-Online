@@ -89,7 +89,9 @@ function off() {
 
 function wait() {
     $.get("/StartDelay", {}, function(response){
-        var start = parseInt(response["start"]);
+        var parsed = JSON.parse(response);
+        var start = parseInt(parsed["start"]);
+        // document.write(start);
         if (start == 1) {
             on();
         } else {
@@ -105,18 +107,18 @@ $(document).ready(function(){
     
     $("#JoinLobbyBtn").click(function(){
         $.get("/JoinLobby", {}, function(response){
-            var success = parseInt(response["success"]);
+            var parsed = JSON.parse(response);
+            var success = parseInt(parsed["success"]);
             if (success == 0) {
+                // on();
                 off();
             } else {
-                pid = parseInt(response["pid"]);
+                pid = parseInt(parsed["pid"]);
                 document.getElementById("JoinLobbyBtn").style.display="none";
                 document.getElementById("WaitLobbyBtn").style.display="inline";
-                // wait();
-                on();
+                wait();
             }
         });
-        
 	});
 
     $("#StartGameBtn").click(function() {

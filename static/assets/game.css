@@ -5,11 +5,9 @@ body {
 }
 #gametitle {
     width: 50%;
-    margin-left: 5%;
-    margin-right: 45%;
     margin-top: 3vw;
     margin-bottom: 1vw;
-    text-align: center;
+    text-align: left;
     font-family: 'Quicksand', sans-serif;
     text-transform: uppercase;
 }

@@ -6,19 +6,18 @@
     10 = bomb
     -1 = hidden
 */
-MineSweeper::MineSweeper(int n, int m, int numMines){
-    this.n = n;
-    this.m = m;
-    this.numMines = numMines
+MineSweeper::MineSweeper(){
 }
 
-
-MineSweeper::MineSweeper(tuple<int, int>[] mineLoc, int n, int m){
-    MineSweeper(n, m. mineLoc.length());
+MineSweeper::MineSweeper(int n, int m, int numMines){
+    this->n = n;
+    this->m = m;
+    this->numMines = numMines;
+    this->grabable = false;
 
     //Init board to be hidden
     board = new int*[n];
-    solutionBoard = new int*[n]
+    solutionBoard = new int*[n];
     for (int i = 0 ; i < n ; i++){
         board[i] = new int[m];
         solutionBoard[i] = new int[m];
@@ -27,10 +26,18 @@ MineSweeper::MineSweeper(tuple<int, int>[] mineLoc, int n, int m){
             solutionBoard[i][j] = 0;        //Init solu board to all 0
         }
     }
-    //Init solution board
+}
+
+void MineSweeper::setGame(int r, int c, std::vector<std::tuple<int, int>> mineLoc){
+    MineSweeper(r, c, mineLoc.size());
+    setMines(mineLoc);
+}
+
+void MineSweeper::setMines(std::vector<std::tuple<int, int>> mineLoc){
+    //set mines in solution board
     for(int i = 0 ; i < mineLoc.size() ; i++){
-        int r = get<0>(mineLoc);
-        int c = get<1>(mineLoc);
+        int r = std::get<0>(mineLoc[i]);
+        int c = std::get<1>(mineLoc[i]);
 
         solutionBoard[r][c] = 10;       //set bomb
 
@@ -49,8 +56,9 @@ MineSweeper::MineSweeper(tuple<int, int>[] mineLoc, int n, int m){
     }
 }
 
-void MineSweeper::setMines(tuple<int, int>[] mineLoc){
-    MinSweeper(mineLoc);
+
+void MineSweeper::setGrabable(bool b){
+    grabable = b;
 }
 
 //Depreceated
@@ -75,14 +83,15 @@ minesweeper::json MineSweeper::pushCell(int r, int c){
 minesweeper::json MineSweeper::clicked(int r, int c, int clickType){
     minesweeper::json result;
 
-    if(clickedType = 1){
-        if(solutionBoard[r][c] == 10){
+    if(clickType = 1){
+        if(solutionBoard[r][c] == 10){      //If clicked cell is a bomb
+            grabable = false;
             result["result"] = 0;
             return result;
         }else{
             board[r][c] = solutionBoard[r][c];
         }
-    }else if(clickedType == 2){
+    }else if(clickType == 2){
         board[r][c] = 10;               // mark r,c as a bomb
     }else{
         result["result"] = 0;

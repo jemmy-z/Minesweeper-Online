@@ -2,7 +2,7 @@
 
 /*
     Board int States
-    0-9 = # adjacent mines
+    0-8 = # adjacent mines
     10 = bomb
     -1 = hidden
 */
@@ -61,12 +61,11 @@ void MineSweeper::setGrabable(bool b){
     grabable = b;
 }
 
-//Depreceated
 minesweeper::json MineSweeper::pushBoard(){
     minesweeper::json result;
-    for(int r = 0 ; r < 3 ; r++){
+    for(int r = 0 ; r < n ; r++){
 		std::vector<int> fin = {};
-		for (int c = 0 ; c < 3 ; c++){
+		for (int c = 0 ; c < m ; c++){
 			fin.push_back(board[r][c]);
  		}
 		result.push_back(fin);
@@ -74,29 +73,58 @@ minesweeper::json MineSweeper::pushBoard(){
     return result;
 }
 
-minesweeper::json MineSweeper::pushCell(int r, int c){
-    minesweeper::json result;
-    result["value"] = solutionBoard[r][c];
-    return result;
+int MineSweeper::pushCell(int r, int c){
+    return solutionBoard[r][c];
 }
 
-minesweeper::json MineSweeper::clicked(int r, int c, int clickType){
-    minesweeper::json result;
+int MineSweeper::clicked(int r, int c, int clickType){
+    //result returns 0 if 
+    int result;
 
     if(clickType = 1){
         if(solutionBoard[r][c] == 10){      //If clicked cell is a bomb
-            grabable = false;
-            result["result"] = 0;
-            return result;
-        }else{
+            grabable = false;               //Effectively ending game
+            result = 0;
+        }else{                              //Update cell State
             board[r][c] = solutionBoard[r][c];
+            result = 1;           //Return sucess
         }
-    }else if(clickType == 2){
-        board[r][c] = 10;               // mark r,c as a bomb
-    }else{
-        result["result"] = 0;
-        return result;
+    }else if(clickType == 2){               //If Right Click
+        if(board[r][c] == -1){              //Check if clicked cell is hidden
+            board[r][c] = 10;               // mark r,c as a bomb
+            result = 1;           //Return sucess
+        }else{
+            result = 0;           //If right clicking visable cell, error
+        }
+    }else{                                  //If click type is anything else, error
+        result = 0;
     }
-    result["result"] = 1;
     return result;
+}
+
+minesweeper::json MineSweeper::groupClear(int r, int c){
+    //Look at all adjacent cells;
+    for(int i = -1 ; i <= 1 ; i++){
+		for(int j = -1 ; j <= 1; j++){
+            //Check if is same cell
+			if(i == 0 && j == 0) continue;
+			int nx = c + j;
+			int ny = r + i;
+            //Check if new cell out of bounds
+			if (nx < 0 || nx >= m || ny < 0 || ny >= n) continue;
+            //Check if cell hidden
+            if(board[ny][nx] != -1) continue;
+
+            int cellValue = solutionBoard[ny][nx];
+
+            if(cellValue == 0){        
+                board[ny][nx] = cellValue;
+                groupClear(ny, nx);
+            }else{
+                board[ny][nx] = cellValue;
+            }
+		}
+	}
+
+    return pushBoard();
 }

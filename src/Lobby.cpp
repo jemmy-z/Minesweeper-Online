@@ -34,5 +34,12 @@ void lobby::genMines(){
         int c = std::rand() % BOARD_M;
         mineLoc.push_back(std::make_tuple(r,c));
     }
+}
 
+Player lobby::getPlayerFromID(int PID){
+    for(Player p: playerList){
+        if(p.getPlayerId() == PID){
+            return p;
+        }
+    }
 }

@@ -26,8 +26,9 @@ function createGrid(data){
 function rightClick(){
     $.get("/cellClicked", {pid: window.pid, row: this.r, col: this.c, clickType: 2}, function(response){
         //setCell value
-        var sel = "#" + r.toString()+ "-" + c.toString();
-        $(sel).text(-1);
+        var value = parseInt(data["value"]);
+        var id = this.r + "-" + this.c;
+        document.getElementById(id).innerHTML = "O";
     });
 }
 
@@ -38,11 +39,16 @@ function cellClicked(){
         if(data["groupClear"]){             //If cell clicked == 0 cell, update all cells
             updateGrid(window.pid);
         }else{                              //else update single cell
-            var value = data["value"];      //0-8 = num, 10 == bomb
+            var value = parseInt(data["value"]);      //0-8 = num, 10 == bomb, flag == 10
             //setCell value
-            var sel = "#" + this.r.toString()+ "-" + this.c.toString();
-            $(sel).text(value);
+            var id =  this.r + "-" + this.c;
+            if (value >= 0 && value <= 8) {
+                document.getElementById(id).style.backgroundColor = red;
+            } else if (value == 10) {
+                document.getElementById(id).innerHTML = "X";
+            }
         }
+
     });
 }
 
@@ -65,6 +71,8 @@ function startGame() {
         var parsed = JSON.parse(response);
         var r = parsed["r"];
         var c = parsed["c"];
+        window.num_bombs = parsed["numBombs"].toString();
+        document.getElementById("num-bombs").innerHTML = window.num_bombs;
         createGrid([r, c]);
         updateGrid();
     });

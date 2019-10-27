@@ -15,6 +15,8 @@ int main(int argc, char** argv){
     //Player players[MAX_PLAYERS];
     int next_index = 0;
 
+    std::tuple<std::string, int> leaderboard[10];
+
     server.renderHTML("/", "index.html");
 
     server.route("/JoinLobby", [&](const request& req, response& res) {
@@ -47,27 +49,39 @@ int main(int argc, char** argv){
         res.sendHTML("");
     });
 
-    // server.route("/cellClicked", [&](const request& req, response& res) {
-    //     if (req.has_params({"row", "col"})){
+    server.route("/cellClicked", [&](const request& req, response& res) {
+        if (req.has_params({"pid", "row", "col", "clickType"})){
+            minesweeper::json result;
 
-    //         int row = std::stoi(req.url_params.get("row"));
-    //         int col = std::stoi(req.url_params.get("col"));
+            int PID = std::stoi(req.url_params.get("pid"));
+            int row = std::stoi(req.url_params.get("row"));
+            int col = std::stoi(req.url_params.get("col"));
+            int clickType = std::stoi(req.url_params.get("clickType"));
 
-    //         res.sendJSON(game.clicked(row, col));
-            
-    //     }
-    //     else{
-    //         res.sendError400();
-    //     } 
-    // });
 
-    // server.route("/updateGrid", [&](const request& req, response& res) {
+            MineSweeper game = mainLobby.getPlayerFromID(PID).getGame();
+            int clickResult = game.clicked(row, col, clickType);
 
-    //     json response = game.pushGrid();
-    
-    //     res.sendJSON(response);
- 
-    // });
+            if(clickResult == 1){
+
+                int value = game.pushCell(row, col);            //Implement group clearing for 0 cell
+                
+                if(value == 0){
+                    result = game.groupClear(row, col);
+                }else{
+                    result["row"] = row;
+                    result["col"] = col;
+                    result["value"] = game.pushCell(row, col);
+                }
+                res.sendJSON(result);
+            }else{
+                res.sendHTML("");
+            }
+        }
+        else{
+            res.sendError400();
+        } 
+    });
 
     server.run();
 }

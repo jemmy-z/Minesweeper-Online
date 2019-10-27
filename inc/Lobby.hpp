@@ -23,6 +23,7 @@ public:
     lobby();
     void startLobby();
     minesweeper::json joinLobby(Player p);
+    Player getPlayerFromID(int PID);
 };
 
 #endif

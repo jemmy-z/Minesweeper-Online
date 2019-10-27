@@ -24,8 +24,9 @@ public:
     void setMines(std::vector<std::tuple<int, int>>);
     void setGrabable(bool);
     minesweeper::json pushBoard();
-    minesweeper::json pushCell(int, int);
-    minesweeper::json clicked(int, int, int);   //r, c, state (1 = left, 2 = right, else = fail)
+    int pushCell(int, int);
+    int clicked(int, int, int);   //r, c, state (1 = left, 2 = right, else = fail)
+    minesweeper::json groupClear(int, int);     //when clicked cell is 0, clear all zeros
     
 };
 

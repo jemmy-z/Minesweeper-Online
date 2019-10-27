@@ -47,14 +47,13 @@ int main(int argc, char** argv){
         res.sendHTML("");
     });
 
-
     //recursive end call
     server.route("/StartDelay", [&](const request& req, response& res){     //0 = stop, 1 = play
         minesweeper::json result;
         result["start"] = mainLobby.startable();
         res.sendJSON(result);
     });
-
+  
     server.route("/cellClicked", [&](const request& req, response& res) {
         if (req.has_params({"pid", "row", "col", "clickType"})){
             minesweeper::json result;

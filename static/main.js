@@ -47,7 +47,7 @@ function cellClicked(){
             //setCell value
             var id =  r.toString() + "-" + c.toString();
             if (value >= 0 && value <= 8) {
-                document.getElementById(id).style.backgroundColor = red;
+                document.getElementById(id).innerHTML = value.toString();
             } else if (value == 10) {
                 document.getElementById(id).innerHTML = "X";
             }

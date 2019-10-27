@@ -89,14 +89,21 @@ body{
             
         }
     .panel.right{
+        font-size: 1vw;
         height: 50vh;
         margin-left: 1vw;   
         margin-right: 3vw; 
         color: rgba(256, 256, 256, 1);
         text-align: left;
         overflow: scroll;
-        
     }
+    .panel.right h2 {
+        font-size: 2vw;
+    }
+    .panel.right h3 {
+        font-size: 1.5vw;
+    }
+
 #yourname {
     font-size: 1vw;
     width: 100%;

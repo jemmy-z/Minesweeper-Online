@@ -94,9 +94,10 @@ class CrowServer : public crow::SimpleApp {
                     assets.push_back(StaticAsset(name, type));
                 }
             }
-
         }
 
+        //Hardcoded minesweeper.jpg
+        assets.push_back(StaticAsset("static/minesweeper","image/x-icon"));
 
         for (auto itr = assets.begin(); itr != assets.end(); itr++){
             std::string filename = (*itr).filename;

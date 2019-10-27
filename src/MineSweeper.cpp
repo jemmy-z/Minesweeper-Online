@@ -56,6 +56,7 @@ void MineSweeper::setMines(std::vector<std::tuple<int, int>> mineLoc){
     }
 }
 
+
 void MineSweeper::setGrabable(bool b){
     grabable = b;
 }

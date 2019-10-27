@@ -8,46 +8,49 @@
 
     <title>Minesweeper Royale</title>
 
-    <link rel="stylesheet" href="../static/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="../static/assets/game.css">
-    <link href="https://fonts.googleapis.com/css?family=cQuicksand&display=swap" rel="stylesheet">
-    <script src="../static/jquery/jquery.js"></script>
-    <script src="../static/bootstrap/bootstrap.min.js"></script>
-    <script src="../static/main.js"></script>
+    <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/game.css">
+    <script src="jquery/jquery.js"></script>
+    <script src="bootstrap/bootstrap.min.js"></script>
+    <script src="main.js"></script>
 </head>
 
-<body>
+<body onload="startGame()">
     <div id="overlay">
         <div id="text"></div>
     </div>
     <main>
         <div id="gametitle">
-            <div class="title" id="maintitle">Minesweeper</div>
+            <div class="title" id="maintitle"><span style="color:lightgreen">Mine</span>sweeper</div>
             <div class="title" id="subtitle">Battle Royale</div>
         </div>
 
         <div class="flux">
             <div class="panel left">
+
             </div>
 
-            <div class="panel middle" id="menuPanel">
-                <!-- <div class="panel middle" > -->
-                    <input id="yourname" align="middle" type="text" placeholder="Enter your name here" style="display: block">
-                    <div class="buttons">
-                        <button class="btn btn-primary" id="JoinLobbyBtn">Join Lobby</button>
-                        <!-- <button class="btn btn-primary" id="LeaveLobbyBtn" style="display:none">Leave Lobby</button> -->
-                        <button class="btn btn-primary" id="InstructionBtn" onclick="">How to Play</button>
-                    </div>
-                    <div id="copyright">&copy; 2019 ALL RIGHTS RESERVED</div>
-                <!-- </div> -->
-                
-                
-                <!-- REMOVE ONCLICK -->
-                <button class="btn btn-primary" id="NewGameBtn" style="display:none" onclick="resetHTML()"  >New Game</button> 
+            <div class="panel middle">
+                <table id="grid"></table>
             </div>
-
 
             <div class="panel right">
+                
+                <div id="player-stats">
+                    <h1 id="player-name">Player 0</h1>
+                    <hr>
+                    <div>
+                        <p style="padding-right: 5vw;">Mines left:</p>
+                        <p>000</p>
+                    </div>
+                    <div>
+                        <p style="padding-right: 3vw;">Time Elapse:</p>
+                        <p>0:00</p>
+                    </div>
+                </div>
+                <div id="player-buttons">
+                    <button class="btn btn-primary" id="LeaveGameBtn">Leave game</button>
+                </div>
             </div>
 
         </div>

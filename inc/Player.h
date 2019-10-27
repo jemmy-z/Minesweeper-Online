@@ -2,19 +2,20 @@
 #define PLAYER_H
 
 #include <string>
+#include <MineSweeper.hpp>
 
 class Player 
 {
 private:
     int playerId;
-    int boardId;
+    MineSweeper game;
 public:
     Player();
-    Player(int pid, int bid);
+    Player(int pid);
     int getPlayerId();
-    int getBoardId();
+    MineSweeper getGame();
     void setPlayerId(int pid);
-    void setBoardId(int bid);
+    void setGame(MineSweeper init);
 };
 
 #endif

@@ -85,14 +85,32 @@ function off() {
   document.getElementById("overlay").style.display = "none";
 }
 
+function wait() {
+    $.get("/StartDelay", {}, function(response){
+        var start = parseInt(response["start"]);
+        if (start == 1) {
+            on();
+        } else {
+            setTimeout(wait(), 500);
+        }
+    });
+}
+
 $(document).ready(function(){
 
-    createGrid();    
+    // createGrid();
+    var pid;
     
-    $("#NewGameBtn").click(function(){
-        $.get("/NewGame", {}, function(response){
-            updateGrid();
-            $("#lol").text("Tic Tac Toe");
+    $("#JoinLobbyBtn").click(function(){
+        $.get("/JoinLobby", {}, function(response){
+            var success = parseInt(response["success"]);
+            if (success == 0) {
+                off();
+            } else {
+                pid = parseInt(response["pid"]);
+                document.getElementById("JoinLobbyBtn").innerHTML = "Waiting in Lobby";
+                wait();
+            }
         });
         
 	});

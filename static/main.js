@@ -27,7 +27,9 @@ function rightClick(){
     $.get("/cellClicked", {pid: window.pid, row: this.r, col: this.c, clickType: 2}, function(response){
         //setCell value
         var value = parseInt(data["value"]);
-        var id = this.r + "-" + this.c;
+        var r = data["row"];
+        var c = data["col"];
+        var id = r.toString() + "-" + c.toString();
         document.getElementById(id).innerHTML = "O";
     });
 }
@@ -40,8 +42,10 @@ function cellClicked(){
             updateGrid(window.pid);
         }else{                              //else update single cell
             var value = parseInt(data["value"]);      //0-8 = num, 10 == bomb, flag == 10
+            var r = data["row"];
+            var c = data["col"];
             //setCell value
-            var id =  this.r + "-" + this.c;
+            var id =  r.toString() + "-" + c.toString();
             if (value >= 0 && value <= 8) {
                 document.getElementById(id).style.backgroundColor = red;
             } else if (value == 10) {

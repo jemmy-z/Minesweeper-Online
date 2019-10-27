@@ -77,6 +77,8 @@ int main(int argc, char** argv){
                     result["groupClear"] = true;
                     game->groupClear(row,col);
                 }
+                result["row"] = row;
+                result["col"] = col;
                 result["value"] = value;
             }
             if(mainLobby.lobbyEnd()){

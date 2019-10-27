@@ -9,7 +9,7 @@
     <title>Minesweeper Royale</title>
 
     <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/game.css">
+    <link rel="stylesheet" href="/assets/main.css">
     <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
     <script src="/jquery/jquery.js"></script>
     <script src="/bootstrap/bootstrap.min.js"></script>
@@ -35,6 +35,7 @@
                     <input id="yourname" align="middle" type="text" placeholder="Enter your name here" style="display: block">
                     <div class="buttons">
                         <button class="btn btn-primary" id="JoinLobbyBtn">Join Lobby</button>
+                        <button class="btn btn-primary fake" id="WaitLobbyBtn" style="display:none">Waiting in Lobby</button>
                         <button class="btn btn-primary" id="LeaveLobbyBtn" style="display:none">Leave Lobby</button>
                         <button class="btn btn-primary" id="InstructionBtn" onclick="">How to Play</button>
                     </div>
@@ -43,11 +44,27 @@
                 
                 
                 <!-- REMOVE ONCLICK -->
-                <button class="btn btn-primary" id="NewGameBtn" style="display:none" onclick="resetHTML()"  >New Game</button> 
+                <!-- <button class="btn btn-primary" id="NewGameBtn" style="display:none" onclick="resetHTML()">New Game</button>  -->
             </div>
 
 
             <div class="panel right">
+                <h1>Instructions</h1>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ornare, augue id venenatis tempus, lectus elit tincidunt nisl, in accumsan felis mi non odio. Ut ac vestibulum purus. Nunc euismod erat et gravida feugiat. Phasellus lectus ipsum, sollicitudin id lorem volutpat, blandit porttitor massa. Nunc vitae tempus libero. Praesent et mauris pellentesque, varius augue ut, ultrices leo. Phasellus sagittis neque rutrum condimentum feugiat.
+                </p>
+                <p>
+                    Duis elementum magna massa. Praesent convallis tortor a justo porta lobortis. Curabitur pharetra tincidunt condimentum. Aliquam lacinia consectetur nibh, vitae lacinia ipsum. Nullam lobortis sapien non nisi bibendum tincidunt. Ut lacinia mi ac elit mollis interdum. Nulla aliquet sodales feugiat. Vestibulum blandit tempor faucibus. Curabitur a hendrerit eros. Nullam et arcu sed dolor posuere varius quis vel tortor. Duis a libero urna.
+                </p>
+                <p>
+                    Aliquam erat volutpat. Aenean facilisis, diam ut blandit mattis, erat orci scelerisque orci, ac gravida velit libero fermentum velit. Maecenas condimentum orci risus, mollis mollis justo rhoncus quis. Aliquam sit amet enim eget risus suscipit eleifend at eu erat. Duis blandit, enim id ultrices interdum, purus neque placerat risus, at bibendum orci ante a neque. Quisque convallis, magna eu semper finibus, augue magna vestibulum sapien, sit amet congue velit arcu sit amet neque. Pellentesque rutrum nisi non neque elementum lacinia. Fusce suscipit dolor sit amet velit porta rhoncus.
+                </p>
+                <p>
+                    Etiam sed orci elit. Pellentesque a felis eu mauris mollis ultricies quis sed sapien. Nam a tellus accumsan, blandit mi vitae, scelerisque elit. Integer fringilla velit non libero sagittis accumsan. Nulla luctus feugiat justo nec pharetra. Nam venenatis purus ac sapien condimentum, id fringilla ex facilisis. Etiam viverra malesuada convallis. Nulla cursus dignissim metus. In hac habitasse platea dictumst.
+                </p>
+                <p>
+                    Morbi imperdiet, diam in facilisis varius, dui elit vulputate sem, at hendrerit tortor odio at magna. Nunc nec metus risus. Phasellus mattis ullamcorper ullamcorper. Pellentesque vulputate ut urna sit amet ornare. Cras vitae nulla maximus mi ornare dapibus eget et tellus. Sed et mauris mauris. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse aliquet erat id neque fermentum, ultricies ornare odio finibus. Quisque pretium luctus tellus id efficitur. Quisque nec consequat justo. Donec sed sapien nec lorem commodo malesuada vitae non tortor.
+                </p>
             </div>
 
         </div>

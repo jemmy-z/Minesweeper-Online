@@ -19,7 +19,7 @@ int main(int argc, char** argv){
 
     server.route("/JoinLobby", [&](const request& req, response& res) {
 
-        Player* p = new Player(next_index);
+        Player p = Player(next_index);
         minesweeper::json result = mainLobby.joinLobby(p);
         if(result["success"] == 1){   
             result["pid"] = next_index;
@@ -64,7 +64,7 @@ int main(int argc, char** argv){
             int col = std::stoi(req.url_params.get("col"));
             int clickType = std::stoi(req.url_params.get("clickType"));
 
-            MineSweeper *game = mainLobby.getPlayerFromID(PID)->getGame();
+            MineSweeper *game = mainLobby.getPlayerFromID(PID).getGame();
             int clickResult = game->clicked(row, col, clickType);
 
             //1 = left click, 2 = right click
@@ -72,17 +72,17 @@ int main(int argc, char** argv){
             result["groupClear"] = false;
             if(clickResult == 1){
 
-                int value = game->pushCell(row, col);            //Implement group clearing for 0 cell
+                int value = game->pushCell(row, col);           
                 if(value == 0){
                     result["groupClear"] = true;
                     game->groupClear(row,col);
-                }else{
-                    result["value"] = game->pushCell(row, col);
                 }
-                res.sendJSON(result);
-            }else{
-                return result;
+                result["value"] = value;
             }
+            if(mainLobby.lobbyEnd()){
+                result["end"] = true;
+            }
+            res.sendJSON(result);
         }
         else{
             res.sendError400();
@@ -92,14 +92,10 @@ int main(int argc, char** argv){
     server.route("/updateGrid", [&](const request& req, response& res){
         if (req.has_params({"pid"})){
             int PID = std::stoi(req.url_params.get("pid"));
-            Player* p = mainLobby.getPlayerFromID(PID);
-            if(p != NULL){
-                MineSweeper *game = p->getGame();
-                minesweeper::json result = game->pushBoard();
-                res.sendJSON(result);
-            }else{
-                res.sendError400();
-            }
+            Player p = mainLobby.getPlayerFromID(PID);
+            MineSweeper *game = p.getGame();
+            minesweeper::json result = game->pushBoard();
+            res.sendJSON(result);
             
         }
         else{

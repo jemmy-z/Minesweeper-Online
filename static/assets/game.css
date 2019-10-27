@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap');
-
 body {
     font-family: 'Quicksand', sans-serif;
     background-image: url("../minesweeper.png");
@@ -97,13 +96,10 @@ body {
         background-color: rgb(41, 180, 227);
     }
 
-
 .flux{
     display: flex;
     justify-content: center;
 }
-
-
 table{
     /*display:inline-block;*/
     /*width: 100%;*/
@@ -118,7 +114,6 @@ table{
         padding: 0;
         width: 1.2vw;
         height: 1.2vw;
-        
     }
 
 

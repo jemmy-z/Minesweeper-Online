@@ -67,7 +67,6 @@ function updateGrid(){
 function startGame() {
     createGrid([20, 35]);
 }
-
 function on() {
     document.getElementById("overlay").style.display = "block";
     var count = 3;

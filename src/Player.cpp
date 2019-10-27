@@ -2,11 +2,12 @@
 
 Player::Player () {
     playerId = -1;
-    game = MineSweeper();
+    game = new MineSweeper();
 }
 
 Player::Player (int pid) {
     playerId = pid;
+    game = new MineSweeper();
 }
 
 int Player::getPlayerId () {
@@ -17,7 +18,7 @@ void Player::setPlayerId (int pid) {
     playerId = pid;
 }
 
-MineSweeper Player::getGame () {
+MineSweeper* Player::getGame () {
     return game;
 }
 

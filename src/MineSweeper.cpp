@@ -9,32 +9,36 @@
 MineSweeper::MineSweeper(){
 }
 
-MineSweeper::MineSweeper(int n, int m, int numMines){
+void MineSweeper::setDefaults(int n, int m, int numMines){
     this->n = n;
     this->m = m;
     this->numMines = numMines;
     this->grabable = false;
 
     //Init board to be hidden
-    board = new int*[n];
-    solutionBoard = new int*[n];
     for (int i = 0 ; i < n ; i++){
-        board[i] = new int[m];
-        solutionBoard[i] = new int[m];
+        board.push_back({});
+        solutionBoard.push_back({});
         for(int j = 0 ; j < m ; j++){
-            board[i][j] = -1;               //Init board to all -1
-            solutionBoard[i][j] = 0;        //Init solu board to all 0
+            board[i].push_back(-1);               //Init board to all -1
+            solutionBoard[i].push_back(0);        //Init solu board to all 0
         }
     }
 }
 
 void MineSweeper::setGame(int r, int c, std::vector<std::tuple<int, int>> mineLoc){
-    MineSweeper(r, c, mineLoc.size());
+    setDefaults(r,c,mineLoc.size());
     setMines(mineLoc);
 }
 
 void MineSweeper::setMines(std::vector<std::tuple<int, int>> mineLoc){
     //set mines in solution board
+    int n = board.size();
+    int m = board[0].size();
+
+    std::cout<<n<<std::endl;
+    std::cout<<m<<std::endl;
+
     for(int i = 0 ; i < mineLoc.size() ; i++){
         int r = std::get<0>(mineLoc[i]);
         int c = std::get<1>(mineLoc[i]);
@@ -47,7 +51,7 @@ void MineSweeper::setMines(std::vector<std::tuple<int, int>> mineLoc){
 			    if(i == 0 && j == 0) continue;
 			        int nx = c + j;
 			        int ny = r + i;
-			    if (nx < 0 || nx == m || ny < 0 || ny == n) continue;
+			    if (nx < 0 || nx >= m || ny < 0 || ny >= n) continue;
                 if(solutionBoard[ny][nx] != 10){        //Dont increment bomb cells
                     solutionBoard[ny][nx] += 1;
                 }
@@ -58,7 +62,7 @@ void MineSweeper::setMines(std::vector<std::tuple<int, int>> mineLoc){
 
 
 void MineSweeper::setGrabable(bool b){
-    grabable = b;
+    this->grabable = b;
 }
 
 minesweeper::json MineSweeper::pushBoard(){
@@ -78,31 +82,29 @@ int MineSweeper::pushCell(int r, int c){
 }
 
 int MineSweeper::clicked(int r, int c, int clickType){
-    //result returns 0 if 
-    int result;
 
     if(clickType = 1){
+        if(board[r][c] != -1) return 0;
         if(solutionBoard[r][c] == 10){      //If clicked cell is a bomb
             grabable = false;               //Effectively ending game
-            result = 0;
+            return 0;
         }else{                              //Update cell State
             board[r][c] = solutionBoard[r][c];
-            result = 1;           //Return sucess
+            return 1;           //Return sucess
         }
     }else if(clickType == 2){               //If Right Click
         if(board[r][c] == -1){              //Check if clicked cell is hidden
             board[r][c] = 10;               // mark r,c as a bomb
-            result = 1;           //Return sucess
+            return 1;           //Return sucess
         }else{
-            result = 0;           //If right clicking visable cell, error
+            return 0;           //If right clicking visable cell, error
         }
     }else{                                  //If click type is anything else, error
-        result = 0;
+        return 0;
     }
-    return result;
 }
 
-minesweeper::json MineSweeper::groupClear(int r, int c){
+void MineSweeper::groupClear(int r, int c){
     //Look at all adjacent cells;
     for(int i = -1 ; i <= 1 ; i++){
 		for(int j = -1 ; j <= 1; j++){
@@ -125,6 +127,4 @@ minesweeper::json MineSweeper::groupClear(int r, int c){
             }
 		}
 	}
-
-    return pushBoard();
 }

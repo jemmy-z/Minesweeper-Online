@@ -8,12 +8,12 @@ class Player
 {
 private:
     int playerId;
-    MineSweeper game;
+    MineSweeper *game;
 public:
     Player();
     Player(int pid);
     int getPlayerId();
-    MineSweeper getGame();
+    MineSweeper* getGame();
     void setPlayerId(int pid);
     void setGame(MineSweeper init);
 };

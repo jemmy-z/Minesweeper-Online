@@ -194,13 +194,24 @@ public:
     }
 
     void renderHTML(std::string endpoint, std::string filename){
-        route(endpoint, [=](const crow::request&, crow::response& res){
-            std::string html = getData(templates_dir + "/" + filename);
-            
-            res.add_header("Access-Control-Allow-Origin", "*");
-            res.add_header("Content-Type", "text/html");
-            res.write(html);
-            res.end();
+        route(endpoint, [=](const crow::request& req, crow::response& res){
+            if(req.has_params({"pid"})){
+                int PID = std::stoi(req.url_params.get("pid"));
+                std::cout<<PID<<std::endl;
+                std::string html = getData(templates_dir + "/" + filename);
+                html += "<span id=\"pid\" class=\""+std::to_string(PID)+"\"></span>";
+                res.add_header("Access-Control-Allow-Origin", "*");
+                res.add_header("Content-Type", "text/html");
+                res.write(html);
+                res.end();
+            }else{
+                std::string html = getData(templates_dir + "/" + filename);
+                
+                res.add_header("Access-Control-Allow-Origin", "*");
+                res.add_header("Content-Type", "text/html");
+                res.write(html);
+                res.end();
+            }
         });
     }
 };

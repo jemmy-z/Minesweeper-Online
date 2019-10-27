@@ -81,8 +81,10 @@ function on() {
 }
 
 function off() {
-  document.getElementById("text").innerHTML = "";
-  document.getElementById("overlay").style.display = "none";
+    document.getElementById("text").innerHTML = "";
+    document.getElementById("overlay").style.display = "none";
+    document.getElementById("JoinLobbyBtn").style.display="inline";
+    document.getElementById("WaitLobbyBtn").style.display="none";
 }
 
 function wait() {
@@ -108,8 +110,10 @@ $(document).ready(function(){
                 off();
             } else {
                 pid = parseInt(response["pid"]);
-                document.getElementById("JoinLobbyBtn").innerHTML = "Waiting in Lobby";
-                wait();
+                document.getElementById("JoinLobbyBtn").style.display="none";
+                document.getElementById("WaitLobbyBtn").style.display="inline";
+                // wait();
+                on();
             }
         });
         

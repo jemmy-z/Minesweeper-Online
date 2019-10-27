@@ -5,16 +5,16 @@ lobby::lobby(){
 }
 
 void lobby::startLobby(){
-    for(Player *p : playerList){
+    for(Player p : playerList){
         //Set the local player board
-        p->getGame()->setGame(BOARD_N, BOARD_M, mineLoc);
+        p.getGame()->setGame(BOARD_N, BOARD_M, mineLoc);
         
         //Allow players to grab their boards
-        p->getGame()->setGrabable(true);
+        p.getGame()->setGrabable(true);
     }
 }
 
-minesweeper::json lobby::joinLobby(Player* p){
+minesweeper::json lobby::joinLobby(Player p){
     minesweeper::json result;
     if(joinable){
         playerList.push_back(p);
@@ -36,9 +36,9 @@ void lobby::genMines(){
     }
 }
 
-Player* lobby::getPlayerFromID(int PID){
-    for(Player *p: playerList){
-        if(p->getPlayerId() == PID){
+Player lobby::getPlayerFromID(int PID){
+    for(Player p: playerList){
+        if(p.getPlayerId() == PID){
             return p;
         }
     }
@@ -54,4 +54,8 @@ std::tuple<int, int> lobby::getDimensions(){
 
 int lobby::getNumMines(){
     return NUM_MINES;
+}
+
+bool lobby::lobbyEnd(){
+    return playerList.size() == 1 ; //&& playerList[0].getGame().getMinesLeft() == 0;
 }

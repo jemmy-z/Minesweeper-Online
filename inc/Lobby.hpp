@@ -7,7 +7,7 @@
 
 class lobby{
 private:
-    std::vector<Player*> playerList;
+    std::vector<Player> playerList;
     std::vector<std::tuple<int, int>> mineLoc;
     MineSweeper initBoard;
 
@@ -22,11 +22,12 @@ private:
 public:
     lobby();
     void startLobby();
-    minesweeper::json joinLobby(Player*);
-    Player* getPlayerFromID(int);
+    minesweeper::json joinLobby(Player);
+    Player getPlayerFromID(int);
     int startable();
     std::tuple<int, int> getDimensions();
     int getNumMines();
+    bool lobbyEnd();
 };
 
 #endif

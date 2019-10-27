@@ -13,6 +13,7 @@ void MineSweeper::setDefaults(int n, int m, int numMines){
     this->n = n;
     this->m = m;
     this->numMines = numMines;
+    this->minesLeft = numMines;
     this->grabable = false;
 
     //Init board to be hidden
@@ -35,9 +36,6 @@ void MineSweeper::setMines(std::vector<std::tuple<int, int>> mineLoc){
     //set mines in solution board
     int n = board.size();
     int m = board[0].size();
-
-    std::cout<<n<<std::endl;
-    std::cout<<m<<std::endl;
 
     for(int i = 0 ; i < mineLoc.size() ; i++){
         int r = std::get<0>(mineLoc[i]);
@@ -95,6 +93,7 @@ int MineSweeper::clicked(int r, int c, int clickType){
     }else if(clickType == 2){               //If Right Click
         if(board[r][c] == -1){              //Check if clicked cell is hidden
             board[r][c] = 10;               // mark r,c as a bomb
+            --numMines;
             return 1;           //Return sucess
         }else{
             return 0;           //If right clicking visable cell, error
@@ -127,4 +126,12 @@ void MineSweeper::groupClear(int r, int c){
             }
 		}
 	}
+}
+
+bool MineSweeper::getGrabable(){
+    return grabable;
+}
+
+int MineSweeper::getMinesLeft(){
+    return minesLeft;
 }

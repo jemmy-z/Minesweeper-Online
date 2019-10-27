@@ -9,6 +9,7 @@ private:
     int n;
     int m;
     int numMines;
+    int minesLeft;
 
     std::vector<std::vector<int>> board;
     std::vector<std::vector<int>> solutionBoard;
@@ -27,7 +28,8 @@ public:
     int pushCell(int, int);
     int clicked(int, int, int);   //r, c, state (1 = left, 2 = right, else = fail)
     void groupClear(int, int);     //when clicked cell is 0, clear all zeros
-    
+    bool getGrabable();
+    int getMinesLeft();
 };
 
 #endif

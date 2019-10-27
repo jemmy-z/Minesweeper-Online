@@ -13,6 +13,7 @@ MineSweeper::MineSweeper(int n, int m, int numMines){
     this->n = n;
     this->m = m;
     this->numMines = numMines;
+    this->grabable = false;
 
     //Init board to be hidden
     board = new int*[n];
@@ -25,6 +26,11 @@ MineSweeper::MineSweeper(int n, int m, int numMines){
             solutionBoard[i][j] = 0;        //Init solu board to all 0
         }
     }
+}
+
+void MineSweeper::setGame(int r, int c, std::vector<std::tuple<int, int>> mineLoc){
+    MineSweeper(r, c, mineLoc.size());
+    setMines(mineLoc);
 }
 
 void MineSweeper::setMines(std::vector<std::tuple<int, int>> mineLoc){
@@ -50,6 +56,10 @@ void MineSweeper::setMines(std::vector<std::tuple<int, int>> mineLoc){
     }
 }
 
+void MineSweeper::setGrabable(bool b){
+    grabable = b;
+}
+
 //Depreceated
 minesweeper::json MineSweeper::pushBoard(){
     minesweeper::json result;
@@ -73,7 +83,8 @@ minesweeper::json MineSweeper::clicked(int r, int c, int clickType){
     minesweeper::json result;
 
     if(clickType = 1){
-        if(solutionBoard[r][c] == 10){
+        if(solutionBoard[r][c] == 10){      //If clicked cell is a bomb
+            grabable = false;
             result["result"] = 0;
             return result;
         }else{

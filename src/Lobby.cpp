@@ -2,20 +2,30 @@
 
 lobby::lobby(){
     genMines();
-    initBoard = MineSweeper(BOARD_N, BOARD_M, mineLoc.size());
-    initBoard.setMines(mineLoc);
 }
 
 void lobby::startLobby(){
-
+    for(Player p : playerList){
+        //Set the local player board
+        p.getGame().setGame(BOARD_N, BOARD_M, mineLoc);
+        
+        //Allow players to grab their boards
+        p.getGame().setGrabable(true);
+    }
 }
 
 minesweeper::json lobby::joinLobby(Player p){
-    assert(joinable);
-    playerList.push_back(p);
-    if(playerList.size() >= MAX_PLAYERS){
-        joinable = false;
+    minesweeper::json result;
+    if(joinable){
+        playerList.push_back(p);
+        if(playerList.size() >= MAX_PLAYERS){
+            joinable = false;
+        }
+        result["success"] = 1;
+        return result;
     }
+    result["success"] = 0;
+    return result;
 }
 
 void lobby::genMines(){

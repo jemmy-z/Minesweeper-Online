@@ -64,15 +64,61 @@ function updateGrid(){
     });
 }
 
+function on() {
+    document.getElementById("overlay").style.display = "block";
+    var count = 3;
+    document.getElementById("text").innerHTML = count.toString();
+    var x = setInterval(counter, 1000);
+    function counter() {
+        if (count == 0) {
+            clearInterval(x);
+            off();
+        } else {
+            count--;
+            document.getElementById("text").innerHTML = count.toString();  
+        }
+    }
+}
+
+function off() {
+  document.getElementById("text").innerHTML = "";
+  document.getElementById("overlay").style.display = "none";
+}
+
+function wait() {
+    $.get("/StartDelay", {}, function(response){
+        var start = parseInt(response["start"]);
+        if (start == 1) {
+            on();
+        } else {
+            setTimeout(wait(), 500);
+        }
+    });
+}
+
 $(document).ready(function(){
 
-    createGrid();    
+    // createGrid();
+    var pid;
     
-    $("#NewGameBtn").click(function(){
-        $.get("/NewGame", {}, function(response){
-            updateGrid();
-            $("#lol").text("Tic Tac Toe");
+    $("#JoinLobbyBtn").click(function(){
+        $.get("/JoinLobby", {}, function(response){
+            var success = parseInt(response["success"]);
+            if (success == 0) {
+                off();
+            } else {
+                pid = parseInt(response["pid"]);
+                document.getElementById("JoinLobbyBtn").innerHTML = "Waiting in Lobby";
+                wait();
+            }
         });
         
 	});
+
+    $("#StartGameBtn").click(function() {
+        $.get("/StartGame", {}, function(response){
+            //countdown
+            on();
+        });
+    });
 });

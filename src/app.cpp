@@ -5,14 +5,11 @@
 
 using namespace minesweeper;
 
-int MAX_PLAYERS = 1;
-
 int main(int argc, char** argv){
 
     CrowServer server(argc, argv);
 
     lobby mainLobby = lobby();
-    //Player players[MAX_PLAYERS];
     int next_index = 0;
 
     std::tuple<std::string, int> leaderboard[10];

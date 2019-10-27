@@ -57,5 +57,5 @@ int lobby::getNumMines(){
 }
 
 bool lobby::lobbyEnd(){
-    return playerList.size() == 1 ; //&& playerList[0].getGame().getMinesLeft() == 0;
+    return playerList.size() == 1 && playerList[0].getGame()->getMinesLeft() == 0;
 }

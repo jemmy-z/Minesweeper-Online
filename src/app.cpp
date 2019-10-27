@@ -18,6 +18,7 @@ int main(int argc, char** argv){
     std::tuple<std::string, int> leaderboard[10];
 
     server.renderHTML("/", "index.html");
+    //server.renderHTML("/game.html", "game.html");
 
     server.route("/JoinLobby", [&](const request& req, response& res) {
 
@@ -47,6 +48,14 @@ int main(int argc, char** argv){
         next_index = 0;
 
         res.sendHTML("");
+    });
+
+
+    //recursive end call
+    server.route("/StartDelay", [&](const request& req, response& res){     //0 = stop, 1 = play
+        minesweeper::json result;
+        result["start"] = mainLobby.startable();
+        res.sendJSON(result);
     });
 
     server.route("/cellClicked", [&](const request& req, response& res) {

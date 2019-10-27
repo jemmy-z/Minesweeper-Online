@@ -43,3 +43,11 @@ Player lobby::getPlayerFromID(int PID){
         }
     }
 }
+
+int lobby::startable(){
+    if(!joinable){
+        return 1;
+    }else{
+        return 0;
+    }
+}

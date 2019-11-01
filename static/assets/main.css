@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap');
 body{
     font-family: 'Quicksand', sans-serif;
     background-image: url("../minesweeper.png");
@@ -17,21 +18,21 @@ body{
     z-index: 2;
     cursor: pointer;
 }
-#text{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    font-size: 10em;
-    color: white;
-    transform: translate(-50%,-50%);
-    -ms-transform: translate(-50%,-50%);
-}
+    #text{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        font-size: 10em;
+        color: white;
+        transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+    }
 #gametitle {
     width: 50%;
     margin-left: 25%;
     margin-right: 25%;
-    margin-top: 3vw;
-    margin-bottom: 1vw;
+    margin-top: 8vh;
+    margin-bottom: 1vh;
     text-align: center;
     font-family: 'Quicksand', sans-serif;
     text-transform: uppercase;
@@ -51,17 +52,17 @@ body{
 }
 #subtitle{
     font-size:4vw;
-    color: lightgreen; /*rgb(47, 13, 217);*/
+    color: lightgreen;
     margin-top: 0em;
     margin-bottom: 0;
-    text-shadow: .1vw .1vw .3vw rgba(256, 256, 256, 0.5);
+    text-shadow: .1vw .1vw .3vw rgba(0, 0, 0, 0.5);
 }
 
 .panel{
     width:37.5%;
     height:100%;
     padding: 1vw;
-    margin-top: 3vw;
+    margin-top: 3vh;
     text-align: center;
     border-style: solid;
     border-color: rgba(0, 0, 0, 0);
@@ -71,7 +72,7 @@ body{
     .panel.left{
         margin-left: 3vw;
         margin-right: 1vw;
-        height: 25vw;
+        height: 50vh;
         color: rgba(256, 256, 256, 1);
         text-align: left;
         overflow: scroll;
@@ -82,23 +83,27 @@ body{
         padding-left: 3.5vw;
         padding-right: 3.5vw;
         width: 25%;
-        /*margin: 0;*/
-        padding: 1vw;
-        
-        
+        padding: 1vw;        
     }
         .panel.middle.box{
             
         }
     .panel.right{
-        height: 25vw;
+        font-size: 1vw;
+        height: 50vh;
         margin-left: 1vw;   
         margin-right: 3vw; 
         color: rgba(256, 256, 256, 1);
         text-align: left;
         overflow: scroll;
-        
     }
+    .panel.right h2 {
+        font-size: 2vw;
+    }
+    .panel.right h3 {
+        font-size: 1.5vw;
+    }
+
 #yourname {
     font-size: 1vw;
     width: 100%;
@@ -110,38 +115,34 @@ body{
     #yourname:focus {
         outline: none;
     }
-.buttons {
-    margin-top: 1vw;
-    margin-bottom: 1vw;
-}
 .btn {
     width: 100%;
-    height: 3vw;
     font-size: 1vw;
-    margin-top: 0.15vw;
-    margin-bottom: 0.15vw;
+    margin-top: 0.5vh;
+    margin-bottom: 0.5vh;
     border-style: none;
 }
     #JoinLobbyBtn{
+        margin-top: 1.5vh;
         background-color: rgb(41, 180, 227);
     }
-        #JoinLobbyBtn:focus{
-            outline: none;
-            border-style:none;
-        }
     #InstructionBtn{
         background-color: rgb(41, 134, 227);
     }
+    #WaitLobbyBtn{
+        margin-top: 1.5vh;
+    }
+
 .btn.fake {
     pointer-events: none;
-    background-color: rgb(0, 76, 255);
+    background-color: rgb(171, 171, 171);
 }
     .btn.fake:hover {
-        background-color: rgb(0, 76, 255);
-    }   
+        background-color: rgb(171, 171, 171);
+    }
 
 #copyright{
-    margin-top: 4vw;
+    margin-top: 7vh;
     color: white;
     font-size: 0.7vw;
     letter-spacing: .25vw;
@@ -151,17 +152,6 @@ body{
     display: flex;
     justify-content: center;
 }
-table{
-    display:inline-block;
-}
-    td{
-        border: 1px solid black;
-        width: 1.6em;
-        height: 1.6em;
-        font-size:50px;
-        cursor: pointer;
-        background:white;
-    }
 
 
 

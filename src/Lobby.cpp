@@ -7,10 +7,10 @@ lobby::lobby(){
 void lobby::startLobby(){
     for(Player p : playerList){
         //Set the local player board
-        p.getGame().setGame(BOARD_N, BOARD_M, mineLoc);
+        p.getGame()->setGame(BOARD_N, BOARD_M, mineLoc);
         
         //Allow players to grab their boards
-        p.getGame().setGrabable(true);
+        p.getGame()->setGrabable(true);
     }
 }
 
@@ -46,4 +46,23 @@ Player lobby::getPlayerFromID(int PID){
 
 int lobby::startable(){
     return !joinable;
+}
+
+std::tuple<int, int> lobby::getDimensions(){
+    return std::make_tuple(BOARD_N,BOARD_M);
+}
+
+int lobby::getNumMines(){
+    return NUM_MINES;
+}
+
+bool lobby::lobbyEnd(){
+    return playerList.size() == 1 && playerList[0].getGame()->getMinesLeft() == 0;
+}
+
+void lobby::setGID(int gid){
+    this->gid = gid;
+}
+int lobby::getGID(){
+    return gid;
 }

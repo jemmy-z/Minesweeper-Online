@@ -1,16 +1,14 @@
+@import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap');
 body {
     font-family: 'Quicksand', sans-serif;
     background-image: url("../minesweeper.png");
     background-size: auto;
 }
 #gametitle {
-    width: 50%;
-    margin-left: 5%;
-    margin-right: 45%;
-    margin-top: 3vw;
-    margin-bottom: 1vw;
-    text-align: center;
-    font-family: 'Quicksand', sans-serif;
+    width: 100%;
+    margin-top: 5vh;
+    margin-bottom: 2vh;
+    text-align: left;
     text-transform: uppercase;
 }
 #maintitle{
@@ -18,27 +16,27 @@ body {
     color: white;
     border-style: solid;
     border-color: white;
-    border-width: .3vw;
-    margin-left: 6vw;
+    border-width: .2vw;
+    margin-left: 3vw;
     margin-top: 0;
     margin-bottom: 0;
-    margin-right: 6vw;
+    margin-right: 1vw;
+    padding: .5vw;
     text-shadow: .2vw .2vw .3vw rgba(0, 0, 0, 0.5);
     box-shadow: inset .2vw .2vw .3vw rgba(0, 0, 0, 0.5), .2vw .2vw .3vw rgba(0, 0, 0, 0.5);
     display: inline;
 }
 #subtitle{
     font-size:2vw;
-    color: blue;
+    color: lightgreen;
     margin-top: 0em;
     margin-bottom: 0;
-    text-shadow: .1vw .1vw .3vw rgba(256, 256, 256, 0.5);
+    text-shadow: .1vw .1vw .3vw rgba(0, 0, 0, 0.5);
     display: inline;
 }
 
 .panel{
-    width:37.5%;
-    height:100%;
+    height: 75vh;
     padding: 1vw;
     margin-top: 3vw;
     text-align: center;
@@ -48,90 +46,75 @@ body {
     background-color: rgba(17, 68, 140, 0.8);
 }
     .panel.left{
+        width: 30%;
         margin-left: 3vw;
         margin-right: 1vw;
-        height: 25vw;
         color: rgba(256, 256, 256, 1);
         text-align: left;
-        overflow: scroll;
     }
+
     .panel.middle{
-        margin-left: 3vw;
-        margin-right: 3vw;
-        padding-left: 3.5vw;
-        padding-right: 3.5vw;
-        width: 25%;
-        /*margin: 0;*/
-        padding: 1vw;
-        
-        
+        width: 50%;
+        height: 100%;
+        margin-left: 1vw;
+        margin-right: 1vw;
+        margin-bottom: 1vw;
+        color: rgba(256, 256, 256, 1);
+        text-align: left;
     }
-        .panel.middle.box{
-            
-        }
+
     .panel.right{
-        height: 25vw;
+        height: 30%;
+        width: 20%;
         margin-left: 1vw;   
         margin-right: 3vw; 
         color: rgba(256, 256, 256, 1);
         text-align: left;
-        overflow: scroll;
-        
     }
-#yourname {
-    font-size: 1vw;
-    width: 100%;
-    padding: .5vw;
-    border-style: solid;
-    border-radius: 0.2em;
-    border-color: rgba(0, 0, 0, 0.5);
-}
-    #yourname:focus {
-        outline: none;
+    .panel.right hr {
+        border-style: dotted;
+        border-color: white;
     }
-.buttons {
-    margin-top: 1vw;
-    margin-bottom: 1vw;
+    .panel.right h1{
+        font-size: 2vw;
+    }
+    .panel.right p {
+        display: inline;
+        font-size: 1.5vw;
+    }
+#player-buttons{
+    margin-top: 5vh;
 }
 .btn {
     width: 100%;
-    height: 3vw;
     font-size: 1vw;
-    margin-top: 0.15vw;
-    margin-bottom: 0.15vw;
+    margin-top: 0.5vh;
+    margin-bottom: 0.5vh;
     border-style: none;
 }
-    #JoinLobbyBtn{
+    #LeaveGameBtn {
         background-color: rgb(41, 180, 227);
     }
-        #JoinLobbyBtn:focus{
-            outline: none;
-            border-style:none;
-        }
-    #InstructionBtn{
-        background-color: rgb(41, 134, 227);
-    }
-#copyright{
-    margin-top: 4vw;
-    color: white;
-    font-size: 0.7vw;
-    letter-spacing: .25vw;
-}
 
 .flux{
     display: flex;
     justify-content: center;
 }
 table{
-    display:inline-block;
+    /*display:inline-block;*/
+    /*width: 100%;*/
+    /*height: 100%;*/
 }
-    td{
+    td {
+        color: black;
         border: 1px solid black;
-        width: 1.6em;
-        height: 1.6em;
-        font-size:50px;
+        /*font-size:50px;*/
         cursor: pointer;
         background:white;
+        margin: 0;
+        padding: 0;
+        width: 1.2vw;
+        height: 1.2vw;
     }
 
 
@@ -141,7 +124,7 @@ table{
     width: 100%;
     height: 100%;
     top: 0;
-    right: 0;  
+    right: 0;
     bottom: 0;
     left: 0;
     background-color: rgba(0,0,0,0.5);

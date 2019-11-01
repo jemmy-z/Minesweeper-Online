@@ -10,13 +10,21 @@ int main(int argc, char** argv){
     CrowServer server(argc, argv);
 
     lobby mainLobby = lobby();
+
+    std::vector<lobby*> games;
+    int gid = 0;
+
     int next_index = 0;
 
     std::tuple<std::string, int> leaderboard[10];
 
     server.renderHTML("/", "index.html");
+<<<<<<< HEAD
     
     //server.renderHTML("/game.html", "game.html");
+=======
+    server.renderHTML("/game.html", "game.html");
+>>>>>>> 00a924a83eb5f68b9b8fe226dc93c56da7bf5662
 
     server.route("/JoinLobby", [&](const request& req, response& res) {
 
@@ -31,11 +39,13 @@ int main(int argc, char** argv){
     });
 
     server.route("/StartGame", [&](const request& req, response& res) {
-        int PID = std::stoi(req.url_params.get("pid"));
-        if(PID == 0){
-            mainLobby.startLobby();
-        }
-        res.sendHTML("");
+        minesweeper::json result;
+        mainLobby.startLobby();
+        std::tuple<int, int> dimension = mainLobby.getDimensions();
+        result["r"] = std::get<0>(dimension);
+        result["c"] = std::get<1>(dimension);
+        result["numBombs"] = mainLobby.getNumMines();
+        res.sendJSON(result);
     });
 
     server.route("/NewGame", [&](const request& req, response& res){
@@ -57,37 +67,62 @@ int main(int argc, char** argv){
   
     server.route("/cellClicked", [&](const request& req, response& res) {
         if (req.has_params({"pid", "row", "col", "clickType"})){
-            minesweeper::json result;
 
             int PID = std::stoi(req.url_params.get("pid"));
             int row = std::stoi(req.url_params.get("row"));
             int col = std::stoi(req.url_params.get("col"));
             int clickType = std::stoi(req.url_params.get("clickType"));
 
+            MineSweeper *game = mainLobby.getPlayerFromID(PID).getGame();
+            int clickResult = game->clicked(row, col, clickType);
 
-            MineSweeper game = mainLobby.getPlayerFromID(PID).getGame();
-            int clickResult = game.clicked(row, col, clickType);
-
+            //1 = left click, 2 = right click
+            minesweeper::json result;
+            result["groupClear"] = false;
             if(clickResult == 1){
 
-                int value = game.pushCell(row, col);            //Implement group clearing for 0 cell
-                
+                int value = game->pushCell(row, col);           
                 if(value == 0){
-                    result = game.groupClear(row, col);
-                }else{
-                    result["row"] = row;
-                    result["col"] = col;
-                    result["value"] = game.pushCell(row, col);
+                    result["groupClear"] = true;
+                    game->groupClear(row,col);
                 }
-                res.sendJSON(result);
-            }else{
-                res.sendHTML("");
+                result["row"] = row;
+                result["col"] = col;
+                result["value"] = value;
             }
+            if(mainLobby.lobbyEnd()){
+                result["end"] = true;
+            }
+            res.sendJSON(result);
         }
         else{
             res.sendError400();
         } 
     });
 
+    server.route("/updateGrid", [&](const request& req, response& res){
+        if (req.has_params({"pid"})){
+            int PID = std::stoi(req.url_params.get("pid"));
+            Player p = mainLobby.getPlayerFromID(PID);
+            MineSweeper *game = p.getGame();
+            minesweeper::json result = game->pushBoard();
+            res.sendJSON(result);
+            
+        }
+        else{
+            res.sendError400();
+        } 
+        
+    });
+
     server.run();
+}
+
+lobby* findLobbyByGID(int gid, std::vector<lobby*> games){
+    for(lobby* l: games){
+        if(l->getGID() == gid){
+            return l;
+        }
+    }
+    return nullptr;
 }

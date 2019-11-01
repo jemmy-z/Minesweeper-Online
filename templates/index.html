@@ -9,20 +9,20 @@
     <title>Minesweeper Royale</title>
 
     <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/game.css">
-    <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/main.css">
     <script src="/jquery/jquery.js"></script>
     <script src="/bootstrap/bootstrap.min.js"></script>
     <script src="/main.js"></script>
 </head>
 
 <body>
+
     <div id="overlay">
         <div id="text"></div>
     </div>
     <main>
         <div id="gametitle">
-            <div class="title" id="maintitle">Minesweeper</div>
+            <div class="title" id="maintitle"><span style="color:lightgreen">Mine</span>sweeper</div>
             <div class="title" id="subtitle">Battle Royale</div>
         </div>
 
@@ -35,6 +35,7 @@
                     <input id="yourname" align="middle" type="text" placeholder="Enter your name here" style="display: block">
                     <div class="buttons">
                         <button class="btn btn-primary" id="JoinLobbyBtn">Join Lobby</button>
+                        <button class="btn btn-primary fake" id="WaitLobbyBtn" style="display:none">Waiting in Lobby</button>
                         <button class="btn btn-primary" id="LeaveLobbyBtn" style="display:none">Leave Lobby</button>
                         <button class="btn btn-primary" id="InstructionBtn" onclick="">How to Play</button>
                     </div>
@@ -43,11 +44,30 @@
                 
                 
                 <!-- REMOVE ONCLICK -->
-                <button class="btn btn-primary" id="NewGameBtn" style="display:none" onclick="resetHTML()"  >New Game</button> 
+                <!-- <button class="btn btn-primary" id="NewGameBtn" style="display:none" onclick="resetHTML()">New Game</button>  -->
             </div>
 
-
             <div class="panel right">
+                <h2>Future Updates</h2>
+                <p>
+                    <h3></h3>
+                    <ul>
+                        <li></li>
+                    </ul> 
+                </p>
+            </div>
+
+            <div class="panel right" style="display:none">
+                <h2>Instructions</h2>
+                <p>
+                    <h3>Objectives</h3>
+                    <ul>
+                        <li></li>
+                    </ul>
+                </p>
+                <p>
+                    <h3></h3>
+                </p>
             </div>
 
         </div>

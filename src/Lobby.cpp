@@ -59,3 +59,10 @@ int lobby::getNumMines(){
 bool lobby::lobbyEnd(){
     return playerList.size() == 1 && playerList[0].getGame()->getMinesLeft() == 0;
 }
+
+void lobby::setGID(int gid){
+    this->gid = gid;
+}
+int lobby::getGID(){
+    return gid;
+}

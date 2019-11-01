@@ -10,6 +10,10 @@ int main(int argc, char** argv){
     CrowServer server(argc, argv);
 
     lobby mainLobby = lobby();
+
+    std::vector<lobby*> games;
+    int gid = 0;
+
     int next_index = 0;
 
     std::tuple<std::string, int> leaderboard[10];
@@ -107,4 +111,13 @@ int main(int argc, char** argv){
     });
 
     server.run();
+}
+
+lobby* findLobbyByGID(int gid, std::vector<lobby*> games){
+    for(lobby* l: games){
+        if(l->getGID() == gid){
+            return l;
+        }
+    }
+    return nullptr;
 }

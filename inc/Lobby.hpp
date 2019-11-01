@@ -15,6 +15,7 @@ private:
     int BOARD_N = 20;
     int BOARD_M = 35;
     int NUM_MINES = 140;
+    int gid;
     bool joinable = true;
     
     void genMines();
@@ -28,6 +29,8 @@ public:
     std::tuple<int, int> getDimensions();
     int getNumMines();
     bool lobbyEnd();
+    void setGID(int);
+    int getGID();
 };
 
 #endif

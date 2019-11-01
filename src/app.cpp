@@ -19,12 +19,7 @@ int main(int argc, char** argv){
     std::tuple<std::string, int> leaderboard[10];
 
     server.renderHTML("/", "index.html");
-<<<<<<< HEAD
-    
-    //server.renderHTML("/game.html", "game.html");
-=======
     server.renderHTML("/game.html", "game.html");
->>>>>>> 00a924a83eb5f68b9b8fe226dc93c56da7bf5662
 
     server.route("/JoinLobby", [&](const request& req, response& res) {
 

@@ -16,27 +16,18 @@ function createGrid(data){
     for(var i = 0 ; i < data[0] ; i++){
         for(var j = 0 ; j < data[1] ;j++){
             var sel = "#" + i.toString()+ "-" + j.toString();
-            $(sel).click(cellClicked);
-            $(sel).contextmenu(rightClick);
+            $(sel).click(cellClicked).contextmenu(cellClicked);
             $(sel)[0].r = i;
             $(sel)[0].c = j;
         }
     }
 }
-function rightClick(){
-    $.get("/cellClicked", {pid: window.pid, row: this.r, col: this.c, clickType: 2}, function(response){
-        //setCell value
-        var value = parseInt(data["value"]);
-        var r = data["row"];
-        var c = data["col"];
-        var id = r.toString() + "-" + c.toString();
-        document.getElementById(id).innerHTML = "O";
-    });
-}
 
 //calls /cellClicked endpoint and updatesGrid
-function cellClicked(){
-    $.get("/cellClicked", {pid: window.pid, row: this.r, col: this.c, clickType: 1}, function(response){
+function cellClicked(event){
+    event.preventDefault(); // prevent right-click context menu
+    console.log({pid: window.pid, row: this.r, col: this.c, clickType: event.which});
+    $.get("/cellClicked", {pid: window.pid, row: this.r, col: this.c, clickType: event.which}, function(response){
         var data = JSON.parse(response);
         if(data["groupClear"]){             //If cell clicked == 0 cell, update all cells
             updateGrid(window.pid);

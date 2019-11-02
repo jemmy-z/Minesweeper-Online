@@ -88,9 +88,9 @@ int MineSweeper::clicked(int r, int c, int clickType){
         }                              //Update cell State
         board[r][c] = solutionBoard[r][c];
         return 1;           //Return sucess
-    }else if(clickType == 2){               //If Right Click
+    }else if(clickType == 3){               //If Right Click
         if(board[r][c] == -1){              //Check if clicked cell is hidden
-            board[r][c] = 10;               // mark r,c as a bomb
+            board[r][c] = 10;               // flag r,c as a bomb
             --numMines;
             return 1;           //Return sucess
         }else{

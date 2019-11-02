@@ -4,8 +4,7 @@
 #include <string>
 #include <MineSweeper.hpp>
 
-class Player 
-{
+class Player{
 private:
     int playerId;
     MineSweeper *game;

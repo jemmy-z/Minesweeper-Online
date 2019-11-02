@@ -72,6 +72,24 @@ bool lobby::lobbyEnd(){
 void lobby::setGID(int gid){
     this->gid = gid;
 }
+
 int lobby::getGID(){
     return gid;
+}
+
+bool lobby::playerInLobby(int pid){
+    for(Player p: playerList){
+        if(p.getPlayerId() == pid){
+            return true;
+        }
+    }
+    return false;
+}
+
+void lobby::sendMessage(int pid, std::string msg){
+    chatRoom.push_back(std::make_tuple(pid,msg));
+}
+
+std::vector<std::tuple<int, std::string>> lobby::getChat(){
+    return chatRoom;
 }

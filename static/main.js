@@ -26,7 +26,7 @@ function createGrid(data){
 //calls /cellClicked endpoint and updatesGrid
 function cellClicked(event){
     event.preventDefault(); // prevent right-click context menu
-    console.log({pid: window.pid, row: this.r, col: this.c, clickType: event.which});
+    //console.log({pid: window.pid, row: this.r, col: this.c, clickType: event.which});
     $.get("/cellClicked", {pid: window.pid, row: this.r, col: this.c, clickType: event.which}, function(response){
         var data = JSON.parse(response);
         if(data["groupClear"]){             //If cell clicked == 0 cell, update all cells
@@ -54,7 +54,12 @@ function updateGrid(){
 		for (var row in data){
 			for (var col in data[row]){
                 var sel = "#" + row.toString()+ "-" + col.toString();
-                $(sel).text(data[row][col]);
+                var value = data[row][col];
+                if(value != 10){
+                    $(sel).text(value);
+                }else{
+                    $(sel).text("X")
+                }
 			}
 		}
     });

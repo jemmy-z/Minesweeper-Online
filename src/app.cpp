@@ -92,15 +92,14 @@ int main(int argc, char** argv){
             //1 = left click, 2 = right click
             minesweeper::json result;
             result["groupClear"] = false;
+            result["row"] = row;
+            result["col"] = col;
             if(clickResult == 1){
-
                 int value = game->pushCell(row, col);           
                 if(value == 0){
                     result["groupClear"] = true;
                     game->groupClear(row,col);
                 }
-                result["row"] = row;
-                result["col"] = col;
                 result["value"] = value;
             }
             if(mainLobby.lobbyEnd()){

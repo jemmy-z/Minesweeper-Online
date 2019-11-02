@@ -5,6 +5,24 @@
 
 using namespace minesweeper;
 
+lobby* findLobbyByGID(int gid, std::vector<lobby*> games){
+    for(lobby* l: games){
+        if(l->getGID() == gid){
+            return l;
+        }
+    }
+    return nullptr;
+}
+
+lobby* findLobbyByPID(int pid, std::vector<lobby*> games){
+    for(lobby* l: games){
+        if(l->getGID() == pid){
+            return l;
+        }
+    }
+    return nullptr;
+}
+
 int main(int argc, char** argv){
 
     CrowServer server(argc, argv);
@@ -107,17 +125,26 @@ int main(int argc, char** argv){
         else{
             res.sendError400();
         } 
-        
+    });
+
+    server.route("/sendChat" ,[&](const request& req, response& res){
+        if(req.url_params.hasKey({"pid", "msg"})){
+            int pid = std::stoi(req.url_params.get("pid"));
+            std::string msg = req.url_params.get("msg");
+
+            lobby* l = findLobbyByPID(pid, games);
+
+            if(l != nullptr){
+                l->sendMessage(pid, msg);
+
+                res.sendHTML("");
+            }else{
+                res.sendError400();
+            }
+        }else{
+            res.sendError400();
+        }
     });
 
     server.run();
-}
-
-lobby* findLobbyByGID(int gid, std::vector<lobby*> games){
-    for(lobby* l: games){
-        if(l->getGID() == gid){
-            return l;
-        }
-    }
-    return nullptr;
 }

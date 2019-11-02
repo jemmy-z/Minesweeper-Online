@@ -15,6 +15,7 @@ private:
     std::vector<std::vector<int>> solutionBoard;
 
     bool grabable;
+    bool firstClick;
 
 public:
     //n, m ,numMines

@@ -1,4 +1,5 @@
 #include <Lobby.hpp>
+#include <random>
 
 lobby::lobby(){
     genMines();
@@ -29,10 +30,18 @@ minesweeper::json lobby::joinLobby(Player p){
 }
 
 void lobby::genMines(){
-    for(int i = 0 ; i < NUM_MINES ; i++){
-        int r = std::rand() % BOARD_N;
-        int c = std::rand() % BOARD_M;
-        mineLoc.push_back(std::make_tuple(r,c));
+    std::random_device dev;
+    std::mt19937 rng(dev());
+    std::uniform_int_distribution<std::mt19937::result_type> rowGen(0, BOARD_N-1);
+    std::uniform_int_distribution<std::mt19937::result_type> colGen(0, BOARD_M-1);
+
+    while(mineLoc.size() < NUM_MINES){
+        int r = rowGen(rng);
+        int c = colGen(rng);
+        std::tuple<int, int> location = std::make_tuple(r,c);
+        if(std::find(mineLoc.begin(), mineLoc.end(), location) == mineLoc.end()){
+            mineLoc.push_back(std::make_tuple(r,c));
+        }
     }
 }
 
@@ -63,6 +72,24 @@ bool lobby::lobbyEnd(){
 void lobby::setGID(int gid){
     this->gid = gid;
 }
+
 int lobby::getGID(){
     return gid;
+}
+
+bool lobby::playerInLobby(int pid){
+    for(Player p: playerList){
+        if(p.getPlayerId() == pid){
+            return true;
+        }
+    }
+    return false;
+}
+
+void lobby::sendMessage(int pid, std::string msg){
+    chatRoom.push_back(std::make_tuple(pid,msg));
+}
+
+std::vector<std::tuple<int, std::string>> lobby::getChat(){
+    return chatRoom;
 }

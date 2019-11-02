@@ -9,6 +9,7 @@ class lobby{
 private:
     std::vector<Player> playerList;
     std::vector<std::tuple<int, int>> mineLoc;
+    std::vector<std::tuple<int, std::string>> chatRoom;
     MineSweeper initBoard;
 
     int MAX_PLAYERS = 1;
@@ -31,6 +32,9 @@ public:
     bool lobbyEnd();
     void setGID(int);
     int getGID();
+    bool playerInLobby(int);
+    void sendMessage(int, std::string);
+    std::vector<std::tuple<int, std::string>> getChat();
 };
 
 #endif

@@ -1,4 +1,5 @@
 #include <MineSweeper.hpp>
+#include <random>
 
 /*
     Board int States
@@ -68,6 +69,12 @@ void MineSweeper::setGrabable(bool b){
     this->grabable = b;
 }
 
+/*
+Function args: None
+Returns: json with array of current board states;
+
+None
+*/
 minesweeper::json MineSweeper::pushBoard(){
     minesweeper::json result;
     for(int r = 0 ; r < n ; r++){
@@ -141,11 +148,16 @@ int MineSweeper::clicked(int r, int c, int clickType){
 
             std::vector<std::tuple<int, int>> newMines = {};
 
+            std::random_device dev;
+            std::mt19937 rng(dev());
+            std::uniform_int_distribution<std::mt19937::result_type> rowGen(0, n-1);
+            std::uniform_int_distribution<std::mt19937::result_type> colGen(0, m-1);
+
             while(newMines.size() <= bombsMoved){
 
                 //generate random bomb locations
-                int newRow = std::rand() % n;
-                int newCol = std::rand() % m;
+                int newRow = rowGen(rng) % n;
+                int newCol = colGen(rng) % m;
 
                 //check if in original 3x3
                 if(newRow >= r - 1 && newRow <= r + 1 && newCol >= c - 1 && newCol <= c + 1) continue;

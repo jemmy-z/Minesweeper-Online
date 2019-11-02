@@ -31,6 +31,7 @@ public:
     void groupClear(int, int);     //when clicked cell is 0, clear all zeros
     bool getGrabable();
     int getMinesLeft();
+    bool verifyWin();
 };
 
 #endif

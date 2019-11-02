@@ -69,11 +69,10 @@ void MineSweeper::setGrabable(bool b){
     this->grabable = b;
 }
 
-/*
-Function args: None
-Returns: json with array of current board states;
+/*Function args: None
+  Returns: json with array of current board states;
 
-None
+  None
 */
 minesweeper::json MineSweeper::pushBoard(){
     minesweeper::json result;
@@ -189,11 +188,10 @@ int MineSweeper::clicked(int r, int c, int clickType){
         return 0;
     }
 }
-/*
-Functions args: row and col of starting 0 cell
-Return: void
+/*Functions args: row and col of starting 0 cell
+  Return: void
 
-Recursively iterates through all adjacent cells with 0
+  Recursively iterates through all adjacent cells with 0
 */
 void MineSweeper::groupClear(int r, int c){
     //Look at all adjacent cells;
@@ -226,4 +224,20 @@ bool MineSweeper::getGrabable(){
 
 int MineSweeper::getMinesLeft(){
     return minesLeft;
+}
+
+/*Function args: none
+  Returns: bool
+
+    Iterates through both solution board and player board to verify that player board == solution board
+*/
+bool MineSweeper::verifyWin(){
+    for(int i = 0 ; i < n ; i++){
+        for(int j = 0 ; j < m ; j++){
+            if(solutionBoard[i][j] != board[i][j]){
+                return false;
+            }
+        }
+    }
+    return true;
 }

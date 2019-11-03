@@ -98,7 +98,7 @@ int MineSweeper::pushCell(int r, int c){
 */
 int MineSweeper::clicked(int r, int c, int clickType){
 
-    if(clickType = 1){
+    if(clickType == 1){
         if(firstClick){
             //toggle flag
             firstClick = false;

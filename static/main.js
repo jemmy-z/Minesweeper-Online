@@ -5,7 +5,7 @@ function createGrid(data){
 	for (var i = 0 ; i < data[0] ; i++){
 		var cr = "<tr>";
 		for (var j = 0 ; j < data[1] ; j++){   
-			cr = cr + "<td class=\"content\" id=\"" + i.toString() + "-" + j.toString() + "\"></td>"
+			cr = cr + "<td class='value0' id=\"" + i.toString() + "-" + j.toString() + "\"></td>"
 		}
 		cr = cr + "</tr>\n";
 		result = result + cr;
@@ -26,24 +26,19 @@ function createGrid(data){
 //calls /cellClicked endpoint and updatesGrid
 function cellClicked(event){
     event.preventDefault(); // prevent right-click context menu
-    //console.log({pid: window.pid, row: this.r, col: this.c, clickType: event.which});
     $.get("/cellClicked", {pid: window.pid, row: this.r, col: this.c, clickType: event.which}, function(response){
         var data = JSON.parse(response);
         if(data["groupClear"]){             //If cell clicked == 0 cell, update all cells
             updateGrid(window.pid);
-        }else{                              //else update single cell
-            var value = parseInt(data["value"]);      //0-8 = num, 10 == bomb, flag == 10
+        }
+        else if (data["value"]!==void(0)) {         // else update single cell if given a value
+            var value = data["value"];      //0-8 = num, 10 == bomb, flag == 10
             var r = data["row"];
             var c = data["col"];
-            //setCell value
+            // set cell value
             var id =  r.toString() + "-" + c.toString();
-            if (value >= 0 && value <= 8) {
-                document.getElementById(id).innerHTML = value.toString();
-            } else if (value == 10) {
-                document.getElementById(id).innerHTML = "X";
-            }
+            $("#"+id).text(value).removeClass().addClass("value"+value)
         }
-
     });
 }
 
@@ -55,11 +50,7 @@ function updateGrid(){
 			for (var col in data[row]){
                 var sel = "#" + row.toString()+ "-" + col.toString();
                 var value = data[row][col];
-                if(value != 10){
-                    $(sel).text(value);
-                }else{
-                    $(sel).text("X")
-                }
+                $(sel).text(value).removeClass().addClass("value"+value);
 			}
 		}
     });

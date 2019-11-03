@@ -105,17 +105,54 @@ table{
     /*width: 100%;*/
     /*height: 100%;*/
 }
-    td {
-        color: black;
-        border: 1px solid black;
-        /*font-size:50px;*/
-        cursor: pointer;
-        background:white;
-        margin: 0;
-        padding: 0;
-        width: 1.2vw;
-        height: 1.2vw;
-    }
+td {
+    color: black;
+    border: 1px solid black;
+    /*font-size:50px;*/
+    cursor: pointer;
+    background:white;
+    margin: 0;
+    padding: 0;
+    width: 1.2vw;
+    height: 1.2vw;
+    background-color: lightgray;
+    font-weight: bold;
+}
+.value-1 {
+    background-color: gray;
+    color: gray;
+}
+.value0 {
+    color: lightgray;
+}
+.value1 {
+    color: blue;
+}
+.value2 {
+    color: green;
+}
+.value3 {
+    color: red;
+}
+.value4 {
+    color: darkblue;
+}
+.value5 {
+    color: darkred;
+}
+.value6 {
+    color: teal;
+}
+.value7 {
+    color: black;
+}
+.value9 {
+    color: darkgray;
+}
+.value10 {
+    background-color: black;
+    color: black;
+}
 
 
 #overlay{

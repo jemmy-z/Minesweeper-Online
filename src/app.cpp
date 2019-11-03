@@ -102,6 +102,7 @@ int main(int argc, char** argv){
                 }
                 result["value"] = value;
             }
+            else if (clickResult==2) result["value"] = game->checkFlag(row, col); // flagged
             if(mainLobby.lobbyEnd()){
                 result["end"] = true;
             }

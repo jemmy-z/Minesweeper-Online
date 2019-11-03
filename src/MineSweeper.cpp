@@ -91,6 +91,10 @@ int MineSweeper::pushCell(int r, int c){
     return solutionBoard[r][c];
 }
 
+int MineSweeper::checkFlag(int r, int c) {
+    return board[r][c] == 10? 10: -1;
+}
+
 /*Function args: row, col, and click type
   Return: int
 
@@ -181,8 +185,14 @@ int MineSweeper::clicked(int r, int c, int clickType){
         if(board[r][c] == -1){              //Check if clicked cell is hidden
             board[r][c] = 10;               // flag r,c as a bomb
             --numMines;
-            return 1;           //Return sucess
-        }else{
+            return 2;           //Return sucess
+        }
+        else if (board[r][c] == 10) { // if flagged
+            board[r][c] = -1; // unflag r,c
+            ++numMines;
+            return 2;
+        }
+        else{
             return 0;           //If right clicking visable cell, error
         }
     }else{                                  //If click type is anything else, error

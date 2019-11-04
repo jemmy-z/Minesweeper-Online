@@ -1,0 +1,48 @@
+Back-end:
+	Player inventory
+	Player theme
+	General ability implementations
+		Flip board
+		Inverting nums
+		Cover-up
+	Multi-lobby support
+	updateGrid optimization
+	Code readability
+	PID memory leak
+
+Endpoints:
+	/ability
+	/playerinfo - general info, only requested once at load time
+		Theme
+	/gamepoll - things that need to be updated constantly
+		Inventory
+		Win conditions? possibly under cell clicked instead
+	/JoinLobby - update to include optional guest name
+	/cellClicked - should send death/win condition
+	/bombs - sends bomb locations only when death/win condition is met
+
+Front-end:
+	Leave game dont work
+	Chat sidebar
+	Variable grid width/height
+	Game board theme
+	Ability panel
+	Mines left
+	Timer
+	Todo
+	Enter also enters lobby
+	Leaderboard?
+	Bombs and game ending
+		
+
+Gameplay:
+	Ability distributions
+		Time?
+		Amount space cleared?
+		Better players get worse items
+	Winning
+		Clearing board = secure spot
+
+
+Bugs:
+	Refreshing page crashes server

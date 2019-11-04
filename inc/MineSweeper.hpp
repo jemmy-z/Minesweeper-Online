@@ -27,7 +27,8 @@ public:
     void setGrabable(bool);
     minesweeper::json pushBoard();
     int pushCell(int, int);
-    int clicked(int, int, int);   //r, c, state (1 = left, 2 = right, else = fail)
+    int checkFlag(int, int);
+    int clicked(int, int, int);   //r, c, state (1 = left, 3 = right, else = fail)
     void groupClear(int, int);     //when clicked cell is 0, clear all zeros
     bool getGrabable();
     int getMinesLeft();

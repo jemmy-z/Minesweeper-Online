@@ -5,7 +5,7 @@ function createGrid(data){
 	for (var i = 0 ; i < data[0] ; i++){
 		var cr = "<tr>";
 		for (var j = 0 ; j < data[1] ; j++){   
-			cr = cr + "<td class=\"content\" id=\"" + i.toString() + "-" + j.toString() + "\"></td>"
+			cr = cr + "<td class='value0' id=\"" + i.toString() + "-" + j.toString() + "\"></td>"
 		}
 		cr = cr + "</tr>\n";
 		result = result + cr;
@@ -16,43 +16,29 @@ function createGrid(data){
     for(var i = 0 ; i < data[0] ; i++){
         for(var j = 0 ; j < data[1] ;j++){
             var sel = "#" + i.toString()+ "-" + j.toString();
-            $(sel).click(cellClicked);
-            $(sel).contextmenu(rightClick);
+            $(sel).click(cellClicked).contextmenu(cellClicked);
             $(sel)[0].r = i;
             $(sel)[0].c = j;
         }
     }
 }
-function rightClick(){
-    $.get("/cellClicked", {pid: window.pid, row: this.r, col: this.c, clickType: 2}, function(response){
-        //setCell value
-        var value = parseInt(data["value"]);
-        var r = data["row"];
-        var c = data["col"];
-        var id = r.toString() + "-" + c.toString();
-        document.getElementById(id).innerHTML = "O";
-    });
-}
 
 //calls /cellClicked endpoint and updatesGrid
-function cellClicked(){
-    $.get("/cellClicked", {pid: window.pid, row: this.r, col: this.c, clickType: 1}, function(response){
+function cellClicked(event){
+    event.preventDefault(); // prevent right-click context menu
+    $.get("/cellClicked", {pid: window.pid, row: this.r, col: this.c, clickType: event.which}, function(response){
         var data = JSON.parse(response);
         if(data["groupClear"]){             //If cell clicked == 0 cell, update all cells
             updateGrid(window.pid);
-        }else{                              //else update single cell
-            var value = parseInt(data["value"]);      //0-8 = num, 10 == bomb, flag == 10
+        }
+        else if (data["value"]!==void(0)) {         // else update single cell if given a value
+            var value = data["value"];      //0-8 = num, 10 == bomb, flag == 10
             var r = data["row"];
             var c = data["col"];
-            //setCell value
+            // set cell value
             var id =  r.toString() + "-" + c.toString();
-            if (value >= 0 && value <= 8) {
-                document.getElementById(id).innerHTML = value.toString();
-            } else if (value == 10) {
-                document.getElementById(id).innerHTML = "X";
-            }
+            $("#"+id).text(value).removeClass().addClass("value"+value)
         }
-
     });
 }
 
@@ -63,7 +49,8 @@ function updateGrid(){
 		for (var row in data){
 			for (var col in data[row]){
                 var sel = "#" + row.toString()+ "-" + col.toString();
-                $(sel).text(data[row][col]);
+                var value = data[row][col];
+                $(sel).text(value).removeClass().addClass("value"+value);
 			}
 		}
     });

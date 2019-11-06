@@ -9,6 +9,10 @@ Back-end:
 	updateGrid optimization
 	Code readability
 	PID memory leak
+	database for long term stat tracking
+		ability balancing
+		leaderboard
+		user data?
 
 Endpoints:
 	/ability
